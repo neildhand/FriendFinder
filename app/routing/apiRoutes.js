@@ -8,13 +8,16 @@ module.exports = function(app) {
 	app.post("/api/friends", function(req, res) {
 
 
+		friends.push(req.body);
+
+
 		var matchName = "";
 		var matchImage = "";
 		var totalDiff = 1000;
 
 		for(var i = 0; i < friends.length; i++){
 			var diff = 0;
-			for (var j = 0; j < friends[i].scores[j].length; j++){
+			for (var j = 0; j < friends[i].scores[j]; j++){
 				diff += Math.abs(parseInt(req.body.scores[j]) - parseInt(friends[i].scores[j]));
 			}
 
@@ -26,8 +29,7 @@ module.exports = function(app) {
 		}
 
 
-		friends.push(req.body);
-		res.json({status: 'OK', name: matchName, photo: matchImage})
+		res.json({status: 'OK', name: matchName, photo: matchImage});
 	});
 
 
